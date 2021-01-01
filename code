@@ -1,0 +1,42 @@
+# Created by Janssen Gamilla on 1/1/2021
+import time
+import board
+import neopixel
+from digitalio import DigitalInOut
+import usb_hid
+from adafruit_hid.keyboard import Keyboard
+from adafruit_hid.keyboard_layout_us import KeyboardLayoutUS
+# assign buttons to pins
+button_1 = DigitalInOut(board.D5)
+button_2 = DigitalInOut(board.D6)
+button_3 = DigitalInOut(board.D9)
+button_4 = DigitalInOut(board.D11)
+button_5 = DigitalInOut(board.D12)
+
+time.sleep(0.5)
+k = Keyboard(usb_hid.devices)
+kl = KeyboardLayoutUS(k)
+pixels = neopixel.NeoPixel(board.NEOPIXEL, 10, brightness=0.1)
+# customize macros below
+macro = [["1", "2", "3", "4"], ["5", "6", "7", "8"], ["9", "10", "11", "12"]]
+cur_index = 1
+while True:
+    if cur_index > 3:
+        cur_index = 1
+    if not button_1.value:
+        cur_index = cur_index+1
+        print(cur_index)
+        time.sleep(0.5)
+    if not button_2.value:
+        kl.write(macro[cur_index-1][0])
+        time.sleep(0.4)
+    if not button_3.value:
+        kl.write(macro[cur_index-1][1])
+        time.sleep(0.4)
+    if not button_4.value:
+        kl.write(macro[cur_index-1][2])
+        time.sleep(0.4)
+    if not button_5.value:
+        kl.write(macro[cur_index-1][3])
+        time.sleep(0.4)
+   
