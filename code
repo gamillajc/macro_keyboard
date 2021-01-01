@@ -6,6 +6,7 @@ from digitalio import DigitalInOut
 import usb_hid
 from adafruit_hid.keyboard import Keyboard
 from adafruit_hid.keyboard_layout_us import KeyboardLayoutUS
+from adafruit_hid.keycode import Keycode
 # assign buttons to pins
 button_1 = DigitalInOut(board.D5)
 button_2 = DigitalInOut(board.D6)
@@ -19,9 +20,9 @@ kl = KeyboardLayoutUS(k)
 pixels = neopixel.NeoPixel(board.NEOPIXEL, 10, brightness=0.1)
 # customize macros below
 # max of 4 elements per macro index
-macro = [["1", "2", "3", "4"], ["5", "6", "7", "8"], ["9", "10", "11", "12"]]
+macro = [["1", "2" , "3", "4"], ["5", "6", "7", "8"], ["9", "10", "11", "12"]]
 cur_index = 1
-
+print("Current profile: %d" % cur_index)
 while True:
     if cur_index == 1:
         pixels.fill((0, 128, 0))  # green = profile 1
@@ -34,7 +35,7 @@ while True:
     # code associated with button presses
     if not button_1.value:
         cur_index = cur_index+1
-        print('Current profile: %d' % (cur_index-1))
+        print('Current profile: %d' % (cur_index))
         time.sleep(0.5)
     if not button_2.value:
         kl.write(macro[cur_index-1][0])
@@ -48,3 +49,4 @@ while True:
     if not button_5.value:
         kl.write(macro[cur_index-1][3])
         time.sleep(0.4)
+   
