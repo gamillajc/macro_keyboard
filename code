@@ -24,19 +24,21 @@ macro = [["1", "2" , "3", "4"], ["5", "6", "7", "8"], ["9", "10", "11", "12"]]
 cur_index = 1
 print("Current profile: %d" % cur_index)
 while True:
+    # code associated with profile colors
     if cur_index == 1:
-        pixels.fill((0, 128, 0))  # green = profile 1
+        pixels.fill((255, 69, 0))  # red-orange = profile 1
     elif cur_index == 2:
-        pixels.fill((255, 255, 255))  # white = profile 2
+        pixels.fill((0, 255, 0))  # green = profile 2
     elif cur_index == 3:
-        pixels.fill((255, 255, 0))  # yellow = profile 3
-    elif cur_index > 3:
-        cur_index = 1
+        pixels.fill((0, 0, 255))  # blue = profile 3
+    
     # code associated with button presses
     if not button_1.value:
         cur_index = cur_index+1
-        print('Current profile: %d' % (cur_index))
-        time.sleep(0.5)
+        time.sleep(0.4)
+        if cur_index > 3:
+            cur_index = 1
+        print("Current profile: %d" % (cur_index))
     if not button_2.value:
         kl.write(macro[cur_index-1][0])
         time.sleep(0.4)
@@ -49,4 +51,3 @@ while True:
     if not button_5.value:
         kl.write(macro[cur_index-1][3])
         time.sleep(0.4)
-   
