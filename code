@@ -77,7 +77,8 @@ if __name__ == "__main__":
     profile_1 = [Keycode.UP_ARROW, Keycode.DOWN_ARROW , Keycode.LEFT_ARROW, Keycode.RIGHT_ARROW]
     profile_2 = ["Hello", "world", "!", Keycode.SPACE]
     profile_3 = ["You can output long strings like this ", "or just a character ", "a", "b"]
-    profile_4 = ["This ", "is ", "profile " , "4"]
+    profile_3 = ["You can output long strings like this ", "or just a character ", "a", "b"]
+    profile_4 = ["press the next button", Keycode.CAPS_LOCK, " now everything is in ", "all caps"]
     
     macro = [profile_1, profile_2, profile_3, profile_4]
     cur_index = 1
