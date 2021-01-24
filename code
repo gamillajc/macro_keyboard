@@ -7,7 +7,11 @@ import usb_hid
 from adafruit_hid.keyboard import Keyboard
 from adafruit_hid.keyboard_layout_us import KeyboardLayoutUS
 from adafruit_hid.keycode import Keycode
+
 delay = 0.2
+# Change num_profiles if adding or deleting profiles
+num_profiles = 4
+
 def handleColors(cur_index, pixels):
     """Changes the neopixel LED on the board to reflect which profile is currently active"""
     if cur_index == 1:
@@ -16,6 +20,8 @@ def handleColors(cur_index, pixels):
         pixels.fill((0, 255, 0))  # green = profile 2
     elif cur_index == 3:
         pixels.fill((0, 0, 255))  # blue = profile 3
+    elif cur_index == 4:
+        pixels.fill((255, 255, 0)) # yellow = profile 4
 
 def handleButtons(cur_index, macro, b_2, b_3, b_4, b_5, k, kl):
     """Outputs desired character or string depending on the cur_index and button pressed"""
@@ -42,10 +48,10 @@ def profileChange(but_1):
         else:
             cur_index = cur_index + 1
         time.sleep(delay)
-        if cur_index > 3:
+        if cur_index > num_profiles:
             cur_index = 1
         elif cur_index < 1:
-            cur_index = 3
+            cur_index = num_profiles
         print("Current profile: %d" % (cur_index))
 
 def decideOutput(macro, cur_index, NumButton, k, kl):
@@ -66,8 +72,14 @@ if __name__ == "__main__":
     kl = KeyboardLayoutUS(k)
     pixels = neopixel.NeoPixel(board.NEOPIXEL, 10, brightness=0.1)
     # customize macros below
-    # max of 4 elements per macro index
-    macro = [[Keycode.UP_ARROW, Keycode.DOWN_ARROW , Keycode.LEFT_ARROW, Keycode.RIGHT_ARROW], ["hello", "world", "!", Keycode.SPACE], ["You can output long strings like this ", "or just a character ", "a", "b"]]
+    # max of 4 elements per profile
+    
+    profile_1 = [Keycode.UP_ARROW, Keycode.DOWN_ARROW , Keycode.LEFT_ARROW, Keycode.RIGHT_ARROW]
+    profile_2 = ["Hello", "world", "!", Keycode.SPACE]
+    profile_3 = ["You can output long strings like this ", "or just a character ", "a", "b"]
+    profile_4 = ["This ", "is ", "profile " , "4"]
+    
+    macro = [profile_1, profile_2, profile_3, profile_4]
     cur_index = 1
     print("Current profile: %d" % (cur_index))
     while True:
